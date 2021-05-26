@@ -1,5 +1,7 @@
 from .all_kmers import all_kmers
+from .debrujin_graph import debrujin_graph
 from .entropy import entropy
+from .euler_cycle import euler_cycle
 from .gibbs_motif_sampler import gibbs_motif_sampler
 from .kmer_fit_probability import kmer_fit_probability
 from .laplace_profile import laplace_profile

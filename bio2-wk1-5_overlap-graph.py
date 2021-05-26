@@ -8,7 +8,9 @@ def def_list():
 
 
 def overlap_graph(seq, k):
-
+    """
+    build an adjancency list of kmers from a seqeuence 
+    """
     kmers = bp.all_kmers(seq, k)
 
     dct = defaultdict(def_list)
