@@ -5,7 +5,7 @@ def def_value():
     return 0
 
 
-def score(motifs):
+def motif_score(motifs):
     """
     get score of motifs
     """
@@ -16,5 +16,5 @@ def score(motifs):
             dct[m[i]] += 1
         lst = [dct["A"], dct["C"], dct["T"], dct["G"]]
         lst.sort()
-        score += lst[0]+lst[1]+lst[2]
+        score += lst[0] + lst[1] + lst[2]
     return score

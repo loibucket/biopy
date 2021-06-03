@@ -1,5 +1,4 @@
 from collections import defaultdict
-import biopy as bp
 
 
 def def_list():
@@ -38,13 +37,13 @@ if __name__ == "__main__":
 
         links = debrujin_kmers(kmers)
 
-        file = open('out_'+str(i)+'.txt', 'w')
+        file = open('out_' + str(i) + '.txt', 'w')
         file.write("\n".join(links))
         file.close()
 
-    print(bp.all_kmers("0111010001", 3))
-    print(bp.all_kmers("1100011011", 3))
-    print(bp.all_kmers("0101010100", 3))
-    print(bp.all_kmers("1111000111", 3))
-    print(bp.all_kmers("0100011101", 3))
-    print(bp.all_kmers("0011101000", 3))
+    # print(bp.all_kmers("0111010001", 3))
+    # print(bp.all_kmers("1100011011", 3))
+    # print(bp.all_kmers("0101010100", 3))
+    # print(bp.all_kmers("1111000111", 3))
+    # print(bp.all_kmers("0100011101", 3))
+    # print(bp.all_kmers("0011101000", 3))

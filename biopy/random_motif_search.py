@@ -1,11 +1,9 @@
 import random
 import biopy as bp
-import copy
 import math
 
 
 def random_motif_search(dna, k, n=100, repeat=20):
-
     best_score = math.inf
     best_motifs = []
 
@@ -25,8 +23,8 @@ def random_motif_search_helper(dna, k, n):
     best_motifs = []
     best_score = math.inf
     for i in range(len(dna)):
-        s = random.randint(0, len(dna[i])-k)
-        best_motifs.append(dna[i][s:s+k])
+        s = random.randint(0, len(dna[i]) - k)
+        best_motifs.append(dna[i][s:s + k])
 
     for i in range(n):
         better_motifs = bp.most_probable_motifs(dna, bp.laplace_profile(best_motifs))
