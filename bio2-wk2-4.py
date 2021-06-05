@@ -16,11 +16,11 @@ def pairs_adj_list(k, pairs):
     deb_links = {}
     adj_list = []
     for i in range(len(deb_top_links)):
-        top = deb_top_links[i].split(" -> ")
-        bot = deb_bot_links[i].split(" -> ")
+        top = deb_top_links[i].split("->")
+        bot = deb_bot_links[i].split("->")
         deb_key = top[0] + "|" + bot[0]
         deb_links[deb_key] = top[1] + "|" + bot[1]
-        adj_list.append(deb_key + " -> " + deb_links[deb_key])
+        adj_list.append(deb_key + "->" + deb_links[deb_key])
     return adj_list
 
 

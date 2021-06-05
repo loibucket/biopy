@@ -3,12 +3,12 @@ import biopy as bp
 import math
 
 
-def random_motif_search(dna, k, n=100, repeat=20):
+def random_motifs_search(dna, k, n=100, repeat=20):
     best_score = math.inf
     best_motifs = []
 
     for _ in range(repeat):
-        (score, motifs) = random_motif_search_helper(dna, k, n)
+        (score, motifs) = random_motifs_search_helper(dna, k, n)
         if score < best_score:
             best_score = score
             best_motifs = motifs
@@ -16,7 +16,7 @@ def random_motif_search(dna, k, n=100, repeat=20):
     return best_score, best_motifs
 
 
-def random_motif_search_helper(dna, k, n):
+def random_motifs_search_helper(dna, k, n):
     """
     find motifs of length k
     """

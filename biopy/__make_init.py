@@ -1,6 +1,6 @@
 import os
 
-files = [f for f in os.listdir('.') if os.path.isfile(f)]
+files = [f for f in os.listdir('.')]
 files.sort()
 with open('__init__.py', 'w') as initpy:
     for f in files:

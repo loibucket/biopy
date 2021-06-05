@@ -1,7 +1,4 @@
-
-
 def overlap_graph(kmers):
-
     links = []
 
     for i, imer in enumerate(kmers):
@@ -13,14 +10,14 @@ def overlap_graph(kmers):
                     childs.append(jmer)
 
         if childs:
-            links.append(imer + " -> " + ",".join(childs))
+            links.append(imer + "->" + ",".join(childs))
 
     return links
 
 
 if __name__ == "__main__":
 
-    #datasets = [["dataset_wk4-2.txt", "dataset_wk4-2a.txt"]]
+    # datasets = [["dataset_wk4-2.txt", "dataset_wk4-2a.txt"]]
     datasets = [["dataset_198_10a.txt"]]
     for d in datasets:
         with open(d[0], "r") as f:

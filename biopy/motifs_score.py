@@ -5,7 +5,7 @@ def def_value():
     return 0
 
 
-def motif_score(motifs):
+def motifs_score(motifs):
     """
     get score of motifs
     """

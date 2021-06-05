@@ -16,7 +16,7 @@ def debrujin_graph(kmers, sort=True):
 
     if not sort:
         for mer in kmers:
-            links.append(mer[0:-1] + " -> " + mer[1:])
+            links.append(mer[0:-1] + "->" + mer[1:])
         return links
 
     for mer in kmers:
@@ -24,9 +24,28 @@ def debrujin_graph(kmers, sort=True):
         dct[mer[0:-1]].sort()
 
     for mer in dct.keys():
-        links.append(mer + " -> " + ",".join(dct[mer]))
+        links.append(mer + "->" + ",".join(dct[mer]))
 
     return links
+
+
+def debrujin_reverse(adj_list):
+    """
+    returns the original kmers formed from the adjacent list
+    """
+    kmers = []
+    for line in adj_list:
+        nodes = line.split("->")
+        seq = []
+        # add the first mer in each node
+        for n in nodes:
+            seq.append(n[0])
+        # add the trailing mers in the last node
+        nodelen = len(nodes[0])
+        for pos in reversed(range(1, nodelen)):
+            seq.append(nodes[-1][-pos])
+        kmers.append("".join(seq))
+    return kmers
 
 
 if __name__ == "__main__":

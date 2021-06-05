@@ -23,7 +23,7 @@ def overlap_graph(seq, k):
             dct[mer[0:-1]].sort()
 
     for key in dct:
-        links.append(key + " -> " + ",".join(dct[key]))
+        links.append(key + "->" + ",".join(dct[key]))
 
     links.sort()
 
