@@ -5,6 +5,7 @@ from .euler_cycle import *
 from .gibbs_motif_sampler import *
 from .kmer_fit_probability import *
 from .laplace_profile import *
+from .mass_spectrum import *
 from .median_string_motifs import *
 from .most_probable_kmer import *
 from .most_probable_motifs import *
@@ -12,4 +13,6 @@ from .motifs_entropy import *
 from .motifs_score import *
 from .pairs_reconstruct import *
 from .patterns_reconstruct import *
+from .peptide_encoding import *
 from .random_motifs_search import *
+from .reverse_complement import *

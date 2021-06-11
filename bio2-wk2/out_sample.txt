@@ -1,0 +1,7 @@
+TGGA
+TGT
+GAT
+AGA
+CAT
+ATG
+ATG
