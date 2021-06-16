@@ -35,7 +35,7 @@ def aa_mass():
     return amino_acid_mass
 
 
-def linear_spectrum(peptide):
+def linear_aa_spectrum(peptide):
     """
     spectrum of all posible masses that are sub sequences of a linear peptide
     """
@@ -55,7 +55,7 @@ def linear_spectrum(peptide):
     return sorted(spectrum)
 
 
-def cyclic_spectrum(peptide):
+def cyclo_aa_spectrum(peptide):
     """
     spectrum of all posible masses that are sub sequences of cyclic peptide
     """
@@ -76,6 +76,16 @@ def cyclic_spectrum(peptide):
             if i > 0 and j < len(peptide):
                 spectrum.append(peptide_mass - (prefix_mass[j]-prefix_mass[i]))
     return sorted(spectrum)
+
+
+def peptide_mass(peptide):
+    """
+    get spectrum mass of peptide
+    """
+    mass = 0
+    for p in list(peptide):
+        mass += aa_mass(p)
+    return mass
 
 
 if __name__ == "__main__":
