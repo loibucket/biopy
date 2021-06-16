@@ -24,16 +24,16 @@ def spectrum_aa_score(peptide, input_spectrum, linear=False):
     t = test.pop()
     s = spectrum.pop()
 
-    while s:
+    while t != -1:
         if t == s:
             score += 1
-            t = test.pop() if test else None
-            s = spectrum.pop() if spectrum else None
+            t = test.pop() if test else -1
+            s = spectrum.pop() if spectrum else -1
         elif t < s:
-            s = spectrum.pop() if spectrum else None
+            s = spectrum.pop() if spectrum else -1
         elif t > s:
-            t = test.pop() if test else None
-            
+            t = test.pop() if test else -1
+
     return score
 
 
@@ -55,17 +55,18 @@ def spectrum_mass_score(peptide, input_spectrum, linear=False):
     t = test.pop()
     s = spectrum.pop()
 
-    while s:
+    while t != -1:
         if t == s:
             score += 1
-            t = test.pop() if test else None
-            s = spectrum.pop() if spectrum else None
+            t = test.pop() if test else -1
+            s = spectrum.pop() if spectrum else -1
         elif t < s:
-            s = spectrum.pop() if spectrum else None
+            s = spectrum.pop() if spectrum else -1
         elif t > s:
-            t = test.pop() if test else None
-            
+            t = test.pop() if test else -1
+
     return score
+
 
 
 if __name__ == "__main__":
