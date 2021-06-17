@@ -39,8 +39,8 @@ def leaderboard_cyclo_sequence(spectrum, N, nonproteingenic=False, max_loop=30, 
             print("expanded leaderboard", len(leaderboard))
 
         for i, pep in enumerate(leaderboard):
-            if debug and i % (100000) == 0:
-                print(i)
+            if debug and (i + 1) % (100000) == 0:
+                print(i + 1)
 
             masspep = sum(pep)
             if not masspep > parent_mass:
@@ -106,7 +106,7 @@ if __name__ == "__main__":
         dataset = f.read().splitlines()
         N = int(dataset[0])
         spec = [int(s) for s in dataset[1].split()]
-    out = leaderboard_cyclo_sequence(spec, N, nonproteingenic=True)
+    out = bp.leaderboard_cyclo_sequence(spec, N, nonproteingenic=True)
 
     print(len(out))
     print(out)

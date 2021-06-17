@@ -1,11 +1,12 @@
 import biopy as bp
 import copy
 import itertools
+from collections import defaultdict
 
 
 def mass_map():
     # https://stepik.org/lesson/99/step/2?unit=8264
-    alphabet = {
+    map = {
         57: "G",
         71: "A",
         87: "S",
@@ -25,17 +26,19 @@ def mass_map():
         163: "Y",
         186: "W",
     }
-    return alphabet
+    return map
 
 
-def expand_peptides(peptides, nonproteingenic=False, masses=mass_map()):
+def mass_list():
+    return [57, 71, 87, 97, 99, 101, 103, 113, 114, 115, 128, 129, 131, 137, 147, 156, 163, 186]
+
+
+def expand_peptides(peptides, nonproteingenic=False, mass_list=mass_list()):
     """
     a new collection containing all possible extensions of peptides in Peptides by a single amino acid mass
     """
     if nonproteingenic:
         mass_list = list(range(57, 201))
-    else:
-        mass_list = masses.keys()
 
     new_peptides = []
     for p in peptides:
@@ -103,11 +106,139 @@ def cyclopeptide_sequence(spectrum):
     return final_peptides
 
 
+def defvalue():
+    return []
+
+
+def leaderboard_cyclo_sequence(spectrum, N, nonproteingenic=False, mass_list=mass_list(), max_loop=30, debug=True):
+    """
+    find the most probable mass-peptide to fit the spectrum
+    """
+    if debug:
+        print("leaderboard_cyclo_sequence-py")
+        print("N", N)
+        print("spectrum", spectrum)
+
+    parent_mass = max(spectrum)
+    leaderboard = [[]]
+    leader_peptide = []
+    leader_score = 0
+
+    linear_score_map = {}
+    cyclic_score_map = {}
+    pep_mass_map = {}
+
+    loop = 0
+    while leaderboard:
+        loop += 1
+
+        if debug:
+            print("loop", loop, "leader_peptide", len(leader_peptide), leader_peptide[:1], "leader_score", leader_score, "leaderboard", len(leaderboard))
+        if loop > max_loop:
+            break
+
+        leaderboard = bp.expand_peptides(leaderboard, nonproteingenic=nonproteingenic, mass_list=mass_list)
+        leaderboard_scores = defaultdict(defvalue)
+
+        if debug:
+            print("expanded leaderboard", len(leaderboard), "sample", leaderboard[:1])
+
+        for i, pep in enumerate(leaderboard):
+            if debug and (i + 1) % (100000) == 0:
+                print(i + 1)
+
+            masspep = sum(pep)
+            if not masspep > parent_mass:
+                leaderboard_scores[bp.spectrum_mass_score(pep, spectrum, linear=True)].append(pep)
+
+            if masspep == parent_mass:
+                pep_cyclic_score = bp.spectrum_mass_score(pep, spectrum, linear=False)
+                if pep_cyclic_score > leader_score:
+                    leader_peptide = [pep]
+                    leader_score = pep_cyclic_score
+                if pep_cyclic_score == leader_score:
+                    if pep not in leader_peptide:
+                        leader_peptide.append(pep)
+
+        leaderboard = leaderboard_trim(leaderboard_scores, N)
+
+    return leader_peptide
+
+
+def leaderboard_trim(leaderboard_scores, N, debug=False):
+    """
+    trim leaderboard to top N players
+    """
+    if leaderboard_scores == []:
+        return []
+
+    new_leaderboard = []
+    for score in sorted(leaderboard_scores.keys(), reverse=True):
+        new_leaderboard += leaderboard_scores[score]
+        if debug:
+            print("score", score, "players", len(leaderboard_scores[score]), "new_leaderboard", len(new_leaderboard))
+        if len(new_leaderboard) >= N:
+            return new_leaderboard
+    return new_leaderboard
+
+
+def spectral_convolution(spectrum):
+    """
+    get the positive difference between all numbers
+    """
+    specq = spectrum.copy()
+    specq.sort()
+    if specq[0] != 0:
+        speq = [0] + specq
+    convoluted = []
+    while specq:
+        subtract = specq.pop()
+        for s in specq:
+            subbed = subtract - s
+            if subbed != 0:
+                convoluted.append(subbed)
+    return convoluted
+
+
+def spectral_convolution_map(convolutions):
+    """
+    map the convolution by count
+    """
+    conv_map = defaultdict(defvalue)
+    uniques = set(convolutions.copy())
+    for u in uniques:
+        if u >= 57 and u <= 200:
+            conv_map[convolutions.count(u)].append(u)
+
+    return conv_map
+
+
+def convolution_cyclo_sequence(spectrum, N=100, M=100, debug=False):
+    """
+    get the most probable peptides from the spectrum
+    N: leaderboard trim limit
+    M: convolutions trim limit
+    """
+    conv = bp.spectral_convolution(spectrum)
+    conv_map = bp.spectral_convolution_map(conv)
+    mass_list = bp.leaderboard_trim(conv_map, M)
+    mass_list.sort()
+
+    if debug:
+        print("convolution_cyclo_sequence-py")
+        print("spectrum", spectrum)
+        print("conv", len(conv))
+        print("conv_map", conv_map)
+        print("mass_list", len(mass_list), mass_list)
+
+    return bp.leaderboard_cyclo_sequence(spectrum, N, mass_list=mass_list)
+
+
 if __name__ == "__main__":
-    # out = expand_peptides([[]])
-    # print(out)
-    # out = expand_peptides(out)
-    # print(out)
+    out = expand_peptides([[]])
+    print(out)
+    out = expand_peptides(out)
+    print(out)
 
     spectrum = "0 71 97 99 103 113 113 114 115 131 137 196 200 202 208 214 226 227 228 240 245 299 311 311 316 327 337 339 340 341 358 408 414 424 429 436 440 442 453 455 471 507 527 537 539 542 551 554 556 566 586 622 638 640 651 653 657 664 669 679 685 735 752 753 754 756 766 777 782 782 794 848 853 865 866 867 879 885 891 893 897 956 962 978 979 980 980 990 994 996 1022 1093"
     # spectrum = "0 113 128 186 241 299 314 427"

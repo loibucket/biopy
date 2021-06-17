@@ -68,8 +68,9 @@ def spectrum_mass_score(peptide, input_spectrum, linear=False):
     return score
 
 
-
 if __name__ == "__main__":
+
+    import sys
 
     pep = "NQEL"
     spec = "0 99 113 114 128 227 257 299 355 356 370 371 484"
@@ -85,7 +86,7 @@ if __name__ == "__main__":
     # out = spectrum_score(pep, spec)
     # print(out)
 
-    pep=[1,1]
-    spec=[1,2,3,4]
+    pep = [1, 1]
+    spec = [1, 2, 3, 4]
     out = spectrum_mass_score(pep, spec)
     print(out)
