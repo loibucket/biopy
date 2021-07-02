@@ -1,6 +1,10 @@
-import biopy as bp
 import copy
 import itertools
+import sys
+
+sys.path.insert(0, "../")
+sys.path.insert(0, "../../")
+import biopy as bp
 
 
 def mass_map():

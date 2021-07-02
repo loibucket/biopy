@@ -1,3 +1,7 @@
+import sys
+
+sys.path.insert(0, "../")
+sys.path.insert(0, "../../")
 import biopy as bp
 
 
@@ -9,10 +13,10 @@ def pairs_adj_list(k, pairs):
     kmers_bot = []
     for pair in pairs:
         kmers_top.append(pair[:k])
-        kmers_bot.append(pair[k + 1:])
+        kmers_bot.append(pair[k + 1 :])
     deb_top_links = bp.debrujin_graph(kmers_top, sort=False)
     deb_bot_links = bp.debrujin_graph(kmers_bot, sort=False)
-    assert (len(deb_top_links) == len(deb_bot_links))
+    assert len(deb_top_links) == len(deb_bot_links)
     deb_links = {}
     adj_list = []
     for i in range(len(deb_top_links)):
@@ -31,7 +35,7 @@ def pairs_reconstruct(k, d, pairs):
     k, d = int(k), int(d)
     fullpairs = []
     for pair in pairs:
-        full = pair[:k - 1] + "x" * d + pair[k:]
+        full = pair[: k - 1] + ["x"] * d + pair[k:]
         fullpairs.append(full)
     return fullpairs
 
@@ -44,8 +48,9 @@ def seq_reconstruct(k, d, kmers):
     for p in kmers:
         seq.append(p[0])
     for i in reversed(range(1, 2 * k + d - 1)):
+        print(i)
         seq.append(kmers[-i][-1])
-    return ("".join(seq))
+    return "".join(seq)
 
 
 def string_reconstruct(k, d, pairs):
@@ -60,7 +65,7 @@ def string_reconstruct(k, d, pairs):
 
 
 if __name__ == "__main__":
-    files = ["dataset-wk2-4.txt", "dataset_204_16.txt"]
+    files = ["../datasets/dataset_204_16.txt"]
     for i, dataset in enumerate(files):
         with open(dataset) as file:
             data = file.read().splitlines()
@@ -72,6 +77,6 @@ if __name__ == "__main__":
         # print(seq)
         # print("GTGGTCGTGAGATGTTGA")
 
-        file = open('out_' + str(i) + '.txt', 'w')
+        file = open("out_" + str(i) + ".txt", "w")
         file.write(ss)
         file.close()

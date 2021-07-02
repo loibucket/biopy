@@ -1,10 +1,14 @@
 from collections import defaultdict
 from collections import deque
+import sys
+
+sys.path.insert(0, "../")
+sys.path.insert(0, "../../")
 import biopy as bp
 
 
 def defaultlist():
-    return[]
+    return []
 
 
 def codon_table(filename):
@@ -50,14 +54,14 @@ def peptide_encoding(seq, peptide, reversed=False, table=codon_table("RNA_codon_
     kmers_list = []
     qualified_starts = rev_table[peptide[0]]
     for offset in range(3):
-        for i in range(offset, len(seq)-2, 3):
-            codon = seq[i:i+3]
+        for i in range(offset, len(seq) - 2, 3):
+            codon = seq[i : i + 3]
             if codon in qualified_starts:
                 pattern = []
                 pepq = deque(peptide)
                 seqpos = i
-                while(pepq and seqpos + 2 < len(seq)):
-                    curcodon = seq[seqpos:seqpos+3]
+                while pepq and seqpos + 2 < len(seq):
+                    curcodon = seq[seqpos : seqpos + 3]
                     curpep = pepq.popleft()
                     seqpos += 3
                     if table[curcodon] == "":

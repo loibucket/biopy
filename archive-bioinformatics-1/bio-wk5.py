@@ -1,3 +1,7 @@
+import sys
+
+sys.path.insert(0, "../")
+sys.path.insert(0, "../../")
 import biopy as bp
 
 
@@ -17,7 +21,7 @@ def print_out(dna, k):
             motifs.append(line[0])
         print(">median string:", m_string, "score:", bp.score(motifs))
         print("\n".join(motifs))
-        write_motifs('motifs-median-'+str(i)+'.txt', motifs)
+        write_motifs("motifs-median-" + str(i) + ".txt", motifs)
 
     score, motifs = bp.gibbs_motif_sampler(dna, k)
     print(">gibbs:", score)
@@ -31,8 +35,8 @@ def print_out(dna, k):
 
 
 def write_motifs(fname, motifs):
-    f = open(fname, 'w')
-    f.write(str(bp.score(motifs))+"\n")
+    f = open(fname, "w")
+    f.write(str(bp.score(motifs)) + "\n")
     f.write("\n".join(motifs))
     f.close()
 
@@ -64,6 +68,6 @@ if __name__ == "__main__":
 
     # print_out(dna, k)
 
-    file = open('dna.txt', 'w')
+    file = open("dna.txt", "w")
     file.write("\n".join(dna))
     file.close()

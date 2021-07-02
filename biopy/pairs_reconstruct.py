@@ -7,7 +7,8 @@ def pairs_to_sequence(k, d, pairs, debug=False):
     fully reconstruct sequence from unordered read-pairs
     """
 
-    if debug: print("pairs", pairs)
+    if debug:
+        print("pairs", pairs)
 
     # build debrujin graph from read pairs
     deb = bp.pairs_to_debrujin(k, pairs)
@@ -24,7 +25,8 @@ def pairs_to_sequence(k, d, pairs, debug=False):
         # convert ordered debrujin graph to ordered read pairs
         ord_pairs = bp.debrujin_to_pairs(ord_deb)
 
-        if debug: print("order", ord_pairs)
+        if debug:
+            print("order", ord_pairs)
 
         # find sequence from ordered read pairs
         seq = bp.ord_pairs_to_sequence(k, d, ord_pairs, debug)
@@ -55,16 +57,20 @@ def ord_pairs_to_sequence(k, d, pairs, debug=False):
     for pos in range(1, k + 1):
         rseq = [pairs[0][-pos]] + rseq
 
-    if debug: print("fseq", "".join(fseq))
-    if debug: print("rseq", (k + d) * " " + "".join(rseq))
+    if debug:
+        print("fseq", "".join(fseq))
+    if debug:
+        print("rseq", (k + d) * " " + "".join(rseq))
 
     for pos in range(k + d + 1, len(fseq)):
         if fseq[pos] != rseq[pos - k - d]:
-            if debug: print("not a sequence")
+            if debug:
+                print("not a sequence")
             return ""
 
-    if debug: print("is a sequence")
-    return "".join((fseq + rseq[-k - d:]))
+    if debug:
+        print("is a sequence")
+    return "".join((fseq + rseq[-k - d :]))
 
 
 def pairs_to_debrujin(k, pairs):
@@ -75,10 +81,10 @@ def pairs_to_debrujin(k, pairs):
     kmers_bot = []
     for pair in pairs:
         kmers_top.append(pair[:k])
-        kmers_bot.append(pair[k + 1:])
+        kmers_bot.append(pair[k + 1 :])
     deb_top_links = bp.debrujin_graph(kmers_top, sort=False)
     deb_bot_links = bp.debrujin_graph(kmers_bot, sort=False)
-    assert (len(deb_top_links) == len(deb_bot_links))
+    assert len(deb_top_links) == len(deb_bot_links)
     deb_links = {}
     adj_list = []
     for i in range(len(deb_top_links)):
@@ -124,6 +130,6 @@ if __name__ == "__main__":
         # print(seq)
         # print("GTGGTCGTGAGATGTTGA")
 
-        file = open('out_' + str(i) + '.txt', 'w')
+        file = open("out_" + str(i) + ".txt", "w")
         file.write(ss)
         file.close()

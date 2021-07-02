@@ -1,6 +1,9 @@
 from collections import defaultdict
+import sys
+
+sys.path.insert(0, "../")
+sys.path.insert(0, "../../")
 import biopy as bp
-from collections import defaultdict
 
 
 def def_list():
@@ -9,7 +12,7 @@ def def_list():
 
 def overlap_graph(seq, k):
     """
-    build an adjancency list of kmers from a seqeuence 
+    build an adjancency list of kmers from a seqeuence
     """
     kmers = bp.all_kmers(seq, k)
 
@@ -33,13 +36,13 @@ def overlap_graph(seq, k):
 if __name__ == "__main__":
 
     # datasets = [["dataset_wk4-2.txt", "dataset_wk4-2a.txt"]]
-    datasets = [["dataset_199_6.txt"]]
+    datasets = [["../datasets/dataset_199_6.txt"]]
     for d in datasets:
         with open(d[0], "r") as f:
             (k, seq) = f.read().splitlines()
 
         links = overlap_graph(seq, int(k))
 
-        file = open('out.txt', 'w')
+        file = open("out.txt", "w")
         file.write("\n".join(links))
         file.close()

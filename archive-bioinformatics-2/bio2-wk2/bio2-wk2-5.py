@@ -1,3 +1,7 @@
+import sys
+
+sys.path.insert(0, "../")
+sys.path.insert(0, "../../")
 import biopy as bp
 
 if __name__ == "__main__":
@@ -14,6 +18,6 @@ if __name__ == "__main__":
         ans = ["GACCGAGCGCCGGA", "GTGGTCGTGAGATGTTGA"]
         print("ans", ans[i], len(ans[i]))
 
-        file = open('out_' + str(i) + '.txt', 'w')
-        file.write(seq)
+        file = open("out_" + str(i) + ".txt", "w")
+        file.write("\n".join(seq))
         file.close()
