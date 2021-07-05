@@ -58,7 +58,7 @@ def back_path(backtrack, v, w, i, j):
     ww = list(w)
     istring = []
     jstring = []
-    while vv or ww:
+    while vv and ww:
         if backtrack[i][j] == "↓":
             istring = [vv.pop()] + istring
             jstring = ["-"] + jstring
