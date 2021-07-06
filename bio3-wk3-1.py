@@ -14,8 +14,6 @@ try:
     import alignment as bp
 except:
     import biopy as bp
-finally:
-    raise "import error"
 
 
 def score_from_file(file):
@@ -185,10 +183,10 @@ if __name__ == "__main__":
 
     node_scores, path_matrix = path_from_pair(v, w, gap_open_s=-11, gap_ext_e=-1, mismatch=None, match=None, score_matrix=score_matrix)
 
-    v = "A-C--GTTAC"
-    w = "ATGCAG---T"
+    # v = "ACGTTAC"
+    # w = "ATGCAGT"
 
-    node_scores, path_matrix = path_from_pair(v, w, gap_open_s=-4, gap_ext_e=-1, mismatch=1, match=1, score_matrix=None)
+    # node_scores, path_matrix = path_from_pair(v, w, gap_open_s=-4, gap_ext_e=-1, mismatch=-1, match=1, score_matrix=None)
 
     out = back_path(path_matrix, v, w, len(v) - 1, len(w) - 1)
 
