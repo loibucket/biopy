@@ -56,7 +56,7 @@ def dist_btw_leaves(n, adj_dict, mx_node):
 if __name__ == "__main__":
 
     # read D matrix
-    with open("dataset_10329_11x.txt") as f:
+    with open("dataset_10329_11t.txt") as f:
         data = f.read().splitlines()
 
     # sample file content
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     print(mat)
 
     # read T graph and get distance matrix
-    with open("dataset_10328_12x.txt") as f:
+    with open("dataset_10328_12t.txt") as f:
         data = f.read().splitlines()
 
     # sample file content
